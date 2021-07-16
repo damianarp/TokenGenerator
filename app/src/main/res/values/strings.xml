@@ -1,0 +1,18 @@
+<resources>
+    //MainActivity
+    <string name="app_name">Token Generator</string>
+    <string name="welcome_text">Welcome to Token Generator</string>
+    <string name="generate_token_btn">Generate Token</string>
+    <string name="add_token_btn">Add New Token Name </string>
+
+    //GenerateToken
+    <string name="generate_token">Generate Token</string>
+    <string name="generate_token_btn2">Generate New Token</string>
+    <string name="tv_generated">Generated Token:</string>
+    <string name="tv_result">""</string>
+
+    //AddNewTokenName
+    <string name="add_token">Add New Token Name</string>
+    <string name="type_token">Type new name</string>
+    <string name="add_token_btn2">Add New Token Name</string>
+</resources>
