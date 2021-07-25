@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="token_name">
+        <item>Select a Token Name</item>
+        <item>Token Name 1</item>
+        <item>Token Name 2</item>
+        <item>Token Name 3</item>
+        <item>Token Name 4</item>
+        <item>Token Name 5</item>
+        <item>Token Name 6</item>
+    </string-array>
+    
+</resources>
