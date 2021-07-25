@@ -40,9 +40,6 @@ public class GenerateToken extends AppCompatActivity {
         spinner1 = findViewById(R.id.spinner);
         tv_resultado = findViewById(R.id.tv_result);
 
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listToken);
-        spinner1.setAdapter(adapter);
-
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -57,6 +54,9 @@ public class GenerateToken extends AppCompatActivity {
             }
         });
         consultarListaToken();
+
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listToken);
+        spinner1.setAdapter(adapter);
     }
 
     // Creamos un objeto de tipo Random para generar el token
@@ -85,7 +85,7 @@ public class GenerateToken extends AppCompatActivity {
         SQLiteDatabase db = conn.getReadableDatabase();
 
         User_Token_name token = null;
-        tokenList = new ArrayList<User_Token_name>();
+        tokenList = new ArrayList<>();
 
         Cursor cursor = db.rawQuery("SELECT * FROM "+ Utilities.TOKEN_NAME_TABLE, null);
         while (cursor.moveToNext()) {
@@ -96,7 +96,8 @@ public class GenerateToken extends AppCompatActivity {
 
             tokenList.add(token);
         }
-        //obtenerLista();
+        obtenerLista();
+
     }
 
     private void obtenerLista() {
