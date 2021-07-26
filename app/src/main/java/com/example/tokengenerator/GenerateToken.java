@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.tokengenerator.entities.User_Token_name;
+import com.example.tokengenerator.entities.UserTokenName;
 import com.example.tokengenerator.utilities.Utilities;
 
 import java.math.BigInteger;
@@ -26,7 +26,7 @@ public class GenerateToken extends AppCompatActivity {
     private TextView tv_resultado;
 
     ArrayList<String> listToken;
-    ArrayList<User_Token_name> tokenList;
+    ArrayList<UserTokenName> tokenList;
 
     DataBase conn;
 
@@ -69,9 +69,7 @@ public class GenerateToken extends AppCompatActivity {
     public void generateNewToken(View view) {
         String selection = spinner1.getSelectedItem().toString();
         CharSequence text0 = "";
-        CharSequence token = "Generated Token:\n" + "<" + new BigInteger(320, random).toString(32) + ">";
-
-        tv_resultado.setText(tokenGenerated);
+        CharSequence token = "Generated Token:\n" + "<" + tokenGenerated + ">";
 
         if((selection.equals("Select a Token Name"))) {
             Toast.makeText(this, "Please, select an option", Toast.LENGTH_LONG).show();
@@ -79,20 +77,36 @@ public class GenerateToken extends AppCompatActivity {
         } else {
             tv_resultado.setText(token);
         }
+
+        //CREAR CODIGO PARA INSERTAR DATOS EN LA TABLA USER_TOKEN_CODE
+        /*SQLiteDatabase db = conn.getWritableDatabase();
+
+        String code = tokenGenerated.getBytes().toString();
+
+        if(!code.isEmpty()) {
+            ContentValues registration = new ContentValues();
+            registration.put(Utilities.NAME_ID_FIELD, selection);
+            registration.put(Utilities.CODE_FIELD, code);
+
+            db.insert(Utilities.TOKEN_CODE_TABLE,null, registration);
+        }
+
+        db.close();*/
+
     }
 
     public void consultarListaToken() {
         SQLiteDatabase db = conn.getReadableDatabase();
 
-        User_Token_name token = null;
+        UserTokenName token = null;
         tokenList = new ArrayList<>();
 
         Cursor cursor = db.rawQuery("SELECT * FROM "+ Utilities.TOKEN_NAME_TABLE, null);
         while (cursor.moveToNext()) {
-            token = new User_Token_name();
-            token.setUser_token_name(cursor.getString(0));
+            token = new UserTokenName();
+            token.setUserTokenName(cursor.getString(0));
 
-            Log.i("Name", token.getUser_token_name());
+            Log.i("Name", token.getUserTokenName());
 
             tokenList.add(token);
         }
@@ -105,7 +119,7 @@ public class GenerateToken extends AppCompatActivity {
         listToken.add("Select a Token Name");
 
         for(int i = 0; i<tokenList.size(); i++) {
-            listToken.add(tokenList.get(i).getUser_token_name());
+            listToken.add(tokenList.get(i).getUserTokenName());
         }
     }
 }

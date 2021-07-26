@@ -14,7 +14,7 @@ public class Utilities {
     //Queries para crear las tablas USER_TOKEN_NAME y USER_TOKEN_CODE.
     public static final String USER_TOKEN_NAME = "CREATE TABLE " + TOKEN_NAME_TABLE + "("+ NAME_FIELD +" varchar(30) PRIMARY KEY)";
     public static final String USER_TOKEN_CODE = "CREATE TABLE " + TOKEN_CODE_TABLE + "("+ NAME_ID_FIELD +" varchar(30) PRIMARY KEY, " +
-            CODE_FIELD + " varchar(64), " +
-            "FOREIGN KEY("+ NAME_ID_FIELD +") REFERENCES " + TOKEN_NAME_TABLE + "("+ NAME_FIELD +"))";
+            CODE_FIELD + " varchar(64)";
 
 }
+//CREATE TABLE USER_TOKEN_CODE(TOKEN_NAME_ID VARCHAR(30) PRIMARY KEY, TOKEN_CODE VARCHAR(64))

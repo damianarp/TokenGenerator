@@ -23,8 +23,8 @@ public class DataBase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS USER_TOKEN_NAME");
-        db.execSQL("DROP TABLE IF EXISTS USER_TOKEN_CODE");
+        db.execSQL("DROP TABLE IF EXISTS " + Utilities.TOKEN_NAME_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Utilities.TOKEN_CODE_TABLE);
         onCreate(db);
     }
 }
