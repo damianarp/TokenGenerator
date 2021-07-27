@@ -51,7 +51,6 @@ public class GenerateToken extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
         consultarListaToken();
@@ -83,12 +82,10 @@ public class GenerateToken extends AppCompatActivity {
             //CREAR CODIGO PARA INSERTAR DATOS EN LA TABLA USER_TOKEN_CODE
             SQLiteDatabase db = conn.getWritableDatabase();
 
-            String code = tokenGenerated.getBytes().toString();
-
-            if(!code.isEmpty()) {
+            if(!tokenGenerated.isEmpty() && !(selection.equals("Select a Token Name"))) {
                 ContentValues registration = new ContentValues();
                 registration.put(Utilities.NAME_ID_FIELD, selection);
-                registration.put(Utilities.CODE_FIELD, code);
+                registration.put(Utilities.CODE_FIELD, tokenGenerated);
 
                 db.insert(Utilities.TOKEN_CODE_TABLE,null, registration);
             }
