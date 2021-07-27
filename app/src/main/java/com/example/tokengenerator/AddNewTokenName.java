@@ -25,26 +25,29 @@ public class AddNewTokenName extends AppCompatActivity {
 
     //Método para el botón Add New Token Name
     public void addNewTokenName(View view) {
-        DataBase conn = new DataBase(this, "administration", null, 1);
-        SQLiteDatabase db = conn.getWritableDatabase();
+        try {
+            DataBase conn = new DataBase(this, "administration", null, 1);
+            SQLiteDatabase db = conn.getWritableDatabase();
+            String name = newToken.getText().toString();
 
-        String name = newToken.getText().toString();
+            if(!name.isEmpty()) {
+                ContentValues registration = new ContentValues();
+                registration.put(Utilities.NAME_FIELD, name);
 
-        if(!name.isEmpty()) {
-            ContentValues registration = new ContentValues();
-            registration.put(Utilities.NAME_FIELD, name);
+                db.insert(Utilities.TOKEN_NAME_TABLE,null, registration);
 
-            db.insert(Utilities.TOKEN_NAME_TABLE,null, registration);
+                newToken.setText("");
 
-            newToken.setText("");
+                Toast.makeText(this, name + " has been registered successfully!", Toast.LENGTH_SHORT).show();
 
-            Toast.makeText(this, name + " has been registered successfully!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Please, insert a Token's Name", Toast.LENGTH_SHORT).show();
+            }
 
-        } else {
-            Toast.makeText(this, "Please, insert a Token's Name", Toast.LENGTH_SHORT).show();
+            db.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-
-        db.close();
     }
 
 }

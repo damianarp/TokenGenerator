@@ -2,6 +2,7 @@ package com.example.tokengenerator;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -67,31 +68,34 @@ public class GenerateToken extends AppCompatActivity {
     //Método para el botón Generate New Token
     @SuppressLint("SetTextI18n")
     public void generateNewToken(View view) {
-        String selection = spinner1.getSelectedItem().toString();
-        CharSequence text0 = "";
-        CharSequence token = "Generated Token:\n" + "<" + tokenGenerated + ">";
+        try {
+            String selection = spinner1.getSelectedItem().toString();
+            CharSequence text0 = "";
+            CharSequence token = "Generated Token:\n" + "<" + tokenGenerated + ">";
 
-        if((selection.equals("Select a Token Name"))) {
-            Toast.makeText(this, "Please, select an option", Toast.LENGTH_LONG).show();
-            tv_resultado.setText(text0);
-        } else {
-            tv_resultado.setText(token);
+            if((selection.equals("Select a Token Name"))) {
+                Toast.makeText(this, "Please, select an option", Toast.LENGTH_LONG).show();
+                tv_resultado.setText(text0);
+            } else {
+                tv_resultado.setText(token);
+            }
+
+            //CREAR CODIGO PARA INSERTAR DATOS EN LA TABLA USER_TOKEN_CODE
+            SQLiteDatabase db = conn.getWritableDatabase();
+
+            String code = tokenGenerated.getBytes().toString();
+
+            if(!code.isEmpty()) {
+                ContentValues registration = new ContentValues();
+                registration.put(Utilities.NAME_ID_FIELD, selection);
+                registration.put(Utilities.CODE_FIELD, code);
+
+                db.insert(Utilities.TOKEN_CODE_TABLE,null, registration);
+            }
+            db.close();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         }
-
-        //CREAR CODIGO PARA INSERTAR DATOS EN LA TABLA USER_TOKEN_CODE
-        /*SQLiteDatabase db = conn.getWritableDatabase();
-
-        String code = tokenGenerated.getBytes().toString();
-
-        if(!code.isEmpty()) {
-            ContentValues registration = new ContentValues();
-            registration.put(Utilities.NAME_ID_FIELD, selection);
-            registration.put(Utilities.CODE_FIELD, code);
-
-            db.insert(Utilities.TOKEN_CODE_TABLE,null, registration);
-        }
-
-        db.close();*/
 
     }
 
